@@ -1,1 +1,1 @@
-"""Database layer: schema, connection, synthetic data generator. See docs/BUILD_PLAN.md Days 2-5."""
+"""Database layer: schema, connection, synthetic data generator. See docs/BUILD_PLAN.md Days 3-5. Day 2 (schema + connection) done."""
