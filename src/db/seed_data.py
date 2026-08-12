@@ -273,28 +273,28 @@ RESERVATIONS = [
     # SCENARIO 1: identical priority_inputs_json ties the raw score for any weighting.
     # The seam is in contract_notes_text (see PROJECTS above), not in these numbers.
     ("PRJ-BHADLA2", "ITM-INVCTL", 15,
-     '{"revenue_at_risk": 42000000, "penalty_exposure_pct_per_day": 0.3, "delay_probability": 0.3}'),
+     '{"revenue_at_risk": 42000000, "penalty_exposure": 0.3, "delay_probability": 0.3}'),
     ("PRJ-PAVAGADA", "ITM-INVCTL", 9,
-     '{"revenue_at_risk": 42000000, "penalty_exposure_pct_per_day": 0.3, "delay_probability": 0.3}'),
+     '{"revenue_at_risk": 42000000, "penalty_exposure": 0.3, "delay_probability": 0.3}'),
 
     ("PRJ-BHADLA2", "ITM-XFMR", 2,
-     '{"revenue_at_risk": 55500000, "penalty_exposure_pct_per_day": 0.3, "delay_probability": 0.35}'),
+     '{"revenue_at_risk": 55500000, "penalty_exposure": 0.3, "delay_probability": 0.35}'),
     ("PRJ-PAVAGADA", "ITM-XFMR", 1,
-     '{"revenue_at_risk": 33000000, "penalty_exposure_pct_per_day": 0.3, "delay_probability": 0.3}'),
+     '{"revenue_at_risk": 33000000, "penalty_exposure": 0.3, "delay_probability": 0.3}'),
 
     ("PRJ-BHADLA2", "ITM-MMS", 500,
-     '{"revenue_at_risk": 55500000, "penalty_exposure_pct_per_day": 0.3, "delay_probability": 0.3}'),
+     '{"revenue_at_risk": 55500000, "penalty_exposure": 0.3, "delay_probability": 0.3}'),
     ("PRJ-PAVAGADA", "ITM-MMS", 300,
-     '{"revenue_at_risk": 33000000, "penalty_exposure_pct_per_day": 0.3, "delay_probability": 0.3}'),
+     '{"revenue_at_risk": 33000000, "penalty_exposure": 0.3, "delay_probability": 0.3}'),
     ("PRJ-GUJHYBRID", "ITM-MMS", 400,
-     '{"revenue_at_risk": 42600000, "penalty_exposure_pct_per_day": 0.3, "delay_probability": 0.25}'),
+     '{"revenue_at_risk": 42600000, "penalty_exposure": 0.3, "delay_probability": 0.25}'),
 
     ("PRJ-BHADLA2", "ITM-SCB12", 40,
-     '{"revenue_at_risk": 55500000, "penalty_exposure_pct_per_day": 0.3, "delay_probability": 0.3}'),
+     '{"revenue_at_risk": 55500000, "penalty_exposure": 0.3, "delay_probability": 0.3}'),
     ("PRJ-PAVAGADA", "ITM-SCB12", 24,
-     '{"revenue_at_risk": 33000000, "penalty_exposure_pct_per_day": 0.3, "delay_probability": 0.3}'),
+     '{"revenue_at_risk": 33000000, "penalty_exposure": 0.3, "delay_probability": 0.3}'),
     ("PRJ-GUJHYBRID", "ITM-SCB12", 32,
-     '{"revenue_at_risk": 42600000, "penalty_exposure_pct_per_day": 0.3, "delay_probability": 0.25}'),
+     '{"revenue_at_risk": 42600000, "penalty_exposure": 0.3, "delay_probability": 0.25}'),
 ]
 
 TABLES_IN_DELETE_ORDER = [
