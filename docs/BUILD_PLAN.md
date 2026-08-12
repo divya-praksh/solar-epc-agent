@@ -23,7 +23,7 @@ Progress log: check off each day here as you finish it, with the date and commit
 - [ ] **Day 1** — Repo scaffold (this delivery): folder structure, README, `.gitignore`, `requirements.txt`, `.env.example`, PRD + build plan docs. Commit: `Day 1: project scaffold, README, PRD, build plan`.
 - [x] **Day 2** — SQLite schema (`src/db/schema.sql`) for items, stock, projects, bom, suppliers, reservations, agent_recommendations. Connection helper (`src/db/connection.py`) that creates the db from schema if it doesn't exist.
 - [x] **Day 3** — Synthetic data generator (`src/db/seed_data.py`): ~15 items, 5 projects, 3–4 suppliers per item, realistic contract/supplier notes text.
-- [ ] **Day 4** — Scripted conflict scenarios: hand-write the force-majeure allocation tie and the stale-supplier reorder tie from PRD Section 3 directly into the seed data so they're reproducible, not random.
+- [x] **Day 4** — Scripted conflict scenarios: hand-write the force-majeure allocation tie and the stale-supplier reorder tie from PRD Section 3 directly into the seed data so they're reproducible, not random.
 - [ ] **Day 5** — Data validation: a small script/test that sanity-checks the seeded db (foreign keys resolve, no orphan rows, scenario rows present). Review week 1 against the PRD data model.
 
 ## Week 2 — Deterministic compute layer

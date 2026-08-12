@@ -5,6 +5,22 @@ reproducible and explainable end to end. Run with `python -m src.db.seed_data`.
 
 Company names are fictional archetypes (reliable / average / budget-and-slow
 supplier personas), not real vendors.
+
+Two scripted conflict scenarios (PRD Section 3) are baked directly into this
+data so they reproduce identically on every seed run:
+
+SCENARIO 1 — force-majeure allocation tie (ITM-INVCTL, PRJ-BHADLA2 vs
+PRJ-PAVAGADA): both projects' reservations carry an identical
+priority_inputs_json and an identical BOM milestone_date, so a pure weighted
+score ties them regardless of the weights chosen in compute/priority_score.py.
+Only their contract_notes_text differs — BHADLA2 has a force-majeure carve-out
+capping penalty exposure for supplier-caused delay, PAVAGADA does not. Stock
+is deliberately short of combined demand, forcing an allocation decision.
+
+SCENARIO 2 — stale-supplier reorder tie (ITM-MOD540, SUP-BHARAT vs
+SUP-NORTH): both suppliers are priced and lead-timed identically, so a pure
+formula can't break the tie. SUP-NORTH's notes_text flags two late shipments;
+SUP-BHARAT's does not.
 """
 
 from src.db.connection import get_connection
@@ -59,7 +75,7 @@ PROJECTS = [
 # project_id, item_id, qty_required, milestone_date
 BOM = [
     ("PRJ-BHADLA2", "ITM-MOD540", 92600, "2026-09-30"),
-    ("PRJ-BHADLA2", "ITM-INVCTL", 15,    "2026-10-10"),
+    ("PRJ-BHADLA2", "ITM-INVCTL", 15,    "2026-10-10"),  # SCENARIO 1: milestone matches PAVAGADA below
     ("PRJ-BHADLA2", "ITM-MMS",    500,   "2026-09-15"),
     ("PRJ-BHADLA2", "ITM-DCC6",   25000, "2026-09-20"),
     ("PRJ-BHADLA2", "ITM-ACC300", 8000,  "2026-10-01"),
@@ -69,7 +85,7 @@ BOM = [
     ("PRJ-BHADLA2", "ITM-EARTH",  12000, "2026-09-10"),
 
     ("PRJ-PAVAGADA", "ITM-MOD540", 55600, "2026-10-01"),
-    ("PRJ-PAVAGADA", "ITM-INVCTL", 9,     "2026-10-15"),
+    ("PRJ-PAVAGADA", "ITM-INVCTL", 9,     "2026-10-10"),  # SCENARIO 1: milestone matches BHADLA2 above
     ("PRJ-PAVAGADA", "ITM-MMS",    300,   "2026-09-20"),
     ("PRJ-PAVAGADA", "ITM-DCC6",   15000, "2026-09-25"),
     ("PRJ-PAVAGADA", "ITM-SCB12",  24,    "2026-09-28"),
@@ -108,11 +124,13 @@ SUPPLIERS = [
     # Solar Module 540Wp
     ("SUP-SURYA",    "ITM-MOD540", 21, 10800,
      "Tier-1 cell supplier, consistent on-time delivery across the last 6 POs."),
-    ("SUP-BHARAT",   "ITM-MOD540", 18, 10200,
-     "Mid-tier pricing, reliable for order sizes under 50k units."),
+    # SCENARIO 2: SUP-BHARAT and SUP-NORTH are tied on lead time (18d) and price
+    # (9600) — a pure formula can't break this tie. The seam is in notes_text.
+    ("SUP-BHARAT",   "ITM-MOD540", 18, 9600,
+     "Mid-tier vendor, on-time across the last 4 orders, no adverse notes on file."),
     ("SUP-NORTH",    "ITM-MOD540", 18, 9600,
-     "Cheapest quote. Last 2 shipments arrived 5 days late; no explanation given "
-     "beyond 'logistics delay'."),
+     "Cheapest lead time/price match to SUP-BHARAT. Last 2 shipments arrived 5 "
+     "days late; no explanation given beyond 'logistics delay'."),
     ("SUP-SUNTECH",  "ITM-MOD540", 24, 11100,
      "Premium panel efficiency bin, used for space-constrained rooftop sites."),
 
@@ -235,7 +253,7 @@ SUPPLIERS = [
 STOCK = [
     ("ITM-MOD540", "WH-CENTRAL", 165000, 0, 40000),
     ("ITM-INVSTR", "WH-CENTRAL", 280,    0, 100),
-    ("ITM-INVCTL", "WH-CENTRAL", 18,     0, 8),
+    ("ITM-INVCTL", "WH-CENTRAL", 10,     0, 8),  # SCENARIO 1: 18 available < 24 combined demand (15+9)
     ("ITM-MC4",    "WH-CENTRAL", 9000,   0, 0),
     ("ITM-DCC4",   "WH-CENTRAL", 18000,  0, 5000),
     ("ITM-DCC6",   "WH-CENTRAL", 42000,  0, 10000),
@@ -252,6 +270,13 @@ STOCK = [
 
 # project_id, item_id, qty_reserved, priority_inputs_json
 RESERVATIONS = [
+    # SCENARIO 1: identical priority_inputs_json ties the raw score for any weighting.
+    # The seam is in contract_notes_text (see PROJECTS above), not in these numbers.
+    ("PRJ-BHADLA2", "ITM-INVCTL", 15,
+     '{"revenue_at_risk": 42000000, "penalty_exposure_pct_per_day": 0.3, "delay_probability": 0.3}'),
+    ("PRJ-PAVAGADA", "ITM-INVCTL", 9,
+     '{"revenue_at_risk": 42000000, "penalty_exposure_pct_per_day": 0.3, "delay_probability": 0.3}'),
+
     ("PRJ-BHADLA2", "ITM-XFMR", 2,
      '{"revenue_at_risk": 55500000, "penalty_exposure_pct_per_day": 0.3, "delay_probability": 0.35}'),
     ("PRJ-PAVAGADA", "ITM-XFMR", 1,
