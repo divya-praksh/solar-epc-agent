@@ -12,7 +12,7 @@ validated calibration.
 DEFAULT_WEIGHTS = {
     "deadline": -1.0,  # points per day; negative so a closer deadline scores higher
     "revenue": 1e-6,  # points per rupee of revenue at risk
-    "penalty": 100.0,  # points per unit of penalty_exposure_pct_per_day
+    "penalty": 100.0,  # points per unit of penalty_exposure
     "delay": 100.0,  # points per unit of delay_probability (0-1)
 }
 
