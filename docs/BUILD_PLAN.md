@@ -36,7 +36,7 @@ Progress log: check off each day here as you finish it, with the date and commit
 
 ## Week 3 — Agent loop
 
-- [ ] **Day 11** — `src/agent/tools.py`: tool definitions matching PRD Section 6 (get_stock_position, get_project_schedule, get_contract_context, get_supplier_options, compute_reorder_point, compute_priority_scores, draft_purchase_order, draft_allocation_plan).
+- [x] **Day 11** — `src/agent/tools.py`: tool definitions matching PRD Section 6 (get_stock_position, get_project_schedule, get_contract_context, get_supplier_options, compute_reorder_point, compute_priority_scores, draft_purchase_order, draft_allocation_plan).
 - [ ] **Day 12** — `src/agent/agent_loop.py`: reorder-mode loop — Claude tool-use call, agent reads stock/schedule/supplier tools, calls compute_reorder_point, produces reasoning + draft PO.
 - [ ] **Day 13** — Allocation-mode loop: same file, second entry point — agent reads contract context + compute_priority_scores, produces ranked allocation with reasoning.
 - [ ] **Day 14** — Wire the scripted scenarios (force-majeure, stale supplier) through the real agent loop end to end via a CLI script; confirm the LLM's output actually diverges from the raw score as designed.
