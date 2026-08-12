@@ -28,7 +28,7 @@ Progress log: check off each day here as you finish it, with the date and commit
 
 ## Week 2 — Deterministic compute layer
 
-- [ ] **Day 6** — `src/compute/reorder.py`: reorder point and EOQ functions, pure functions taking plain values (no db access inside compute functions — keep it testable).
+- [x] **Day 6** — `src/compute/reorder.py`: reorder point and EOQ functions, pure functions taking plain values (no db access inside compute functions — keep it testable).
 - [ ] **Day 7** — `src/compute/priority_score.py`: the weighted priority score function from PRD Section 3.
 - [ ] **Day 8** — `tests/test_compute.py`: unit tests for both, including the exact numbers from the two scripted scenarios so there's a known-good baseline.
 - [ ] **Day 9** — Small CLI script (`src/compute/__main__.py` or similar) that prints reorder points and priority scores for the seeded data — lets you sanity check compute output before wiring in the LLM.
